@@ -2,11 +2,11 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import queryString from 'query-string';
 import axios from 'axios';
+
 import QuoteText from './QuoteText';
 import QuoteNavigation from './QuoteNavigation';
 import QuoteFooter from './QuoteFooter';
 import QuoteAdd from './QuoteAdd';
-import AddButton from './AddButton';
 
 class QuotesDisplay extends React.Component {
   constructor () {
@@ -17,14 +17,15 @@ class QuotesDisplay extends React.Component {
       text: '',
       author: '',
       notification: false
-}
-    this.handleTextChange = this.handleTextChange.bind(this);
-    this.handleAuthorChange = this.handleAuthorChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-    this.addb = this.addb.bind(this);
+    }
+  
+    this.handleTextChange = this.handleTextChange.bind(this)
+    this.handleAuthorChange = this.handleAuthorChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleCancel = this.handleCancel.bind(this)
+    this.add = this.add.bind(this)
+    this.fetchQuote = this.fetchQuote.bind(this)
     fireRedirect: false
-    
   }
 
   getInitialState(){
@@ -33,12 +34,12 @@ class QuotesDisplay extends React.Component {
 
   fetchQuote (id) {
     axios.get(`api/quotes/${id}`)
-        .then(response => {
-          this.setState({ quote: response.data })
-        })
-        .catch(error => {
-          this.setState({ fireRedirect: true })
-        })
+      .then(response => {
+        this.setState({ quote: response.data })
+      })
+      .catch(error => {
+        this.setState({ fireRedirect: true })
+      })
   }
 
   setQuoteIdFromQueryString (qs) {
@@ -57,7 +58,6 @@ class QuotesDisplay extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    
     this.setQuoteIdFromQueryString(nextProps.location.search)
     this.fetchQuote(this.quoteId)
   }
@@ -68,11 +68,6 @@ class QuotesDisplay extends React.Component {
 
   handleAuthorChange(evt){
     this.setState({ author: evt.target.value })
-  }
-
-  handleChange(event) {
-    console.log(event.target);
-    this.setState({value: event.target.value});
   }
 
   handleSubmit(event) {
@@ -96,7 +91,7 @@ class QuotesDisplay extends React.Component {
           author: ''
         })
         this.setState({notification: true})
-          setTimeout(function() { this.setState({notification: false}); }.bind(this), 5000);
+          setTimeout(function() { this.setState({notification: false}); }.bind(this), 4000);
         })
       .catch(error => {
         this.setState({ fireRedirect: true })
@@ -111,7 +106,7 @@ class QuotesDisplay extends React.Component {
     this.setState({addQuote: false})
   }
 
-  addb(){
+  add(){
     this.setState({addQuote: true});
   }
     
@@ -129,18 +124,18 @@ class QuotesDisplay extends React.Component {
           <Redirect to={'/'} />
             }
           {previousQuoteId &&
-          <QuoteNavigation direction='previous' otherQuoteId={previousQuoteId} />
+          <QuoteNavigation direction='previous' otherQuoteId={previousQuoteId} callBackPreviousQuote={this.fetchQuote}/>
             }
           <QuoteText quote={this.state.quote} />
           {nextQuoteId &&
-          <QuoteNavigation direction='next' otherQuoteId={nextQuoteId} />
+          <QuoteNavigation direction='next' otherQuoteId={nextQuoteId} callBackNextQuote={this.fetchQuote}/>
             }
         </div>
        
         {
           !addQuote &&
           <div className="add-quote">
-            <button className="addButton" onClick={this.addb}>
+            <button className="addButton" onClick={this.add} >
               Add Quote
             </button>
           </div>
@@ -160,18 +155,20 @@ class QuotesDisplay extends React.Component {
           </div>
         }
         
-        { noti &&
+        { 
+          noti &&
           <div className="add-quote-container">
-            *Kaydınız alınmıştır, lütfen onaylanmasını bekleyin. 
+            *Kaydınız alınmıştır, lütfen kontrol edilmesini bekleyin. 
             <br/> 
             Teşekkürler ^^
           </div>
         }
               
         <div>
-          {this.state.quote.id !== parseInt(this.props.startingQuoteId, 10) &&
+          {
+            this.state.quote.id !== parseInt(this.props.startingQuoteId, 10) &&
             <QuoteFooter startingQuoteId={this.props.startingQuoteId} />
-              }
+          }
         </div>
       </div>
     )

@@ -3,7 +3,7 @@ class Api::QuotesController < ApplicationController
 
 	def show
 		@quote = Quote.where(id: params[:id], active: true).first
-  end
+  	end
 
   	def new
   		@quote = Quote.new(quote_params)
