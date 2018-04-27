@@ -1,10 +1,14 @@
 class Quote < ApplicationRecord
+
+  validates :text, presence: true
+  validates :author, presence: true
+
   def next_id
-    self.class.where('id > ?', self.id).pluck(:id).first
+    self.class.where('id > ?', self.id).where(active: true).pluck(:id).first
   end
 
   def previous_id
-    self.class.where('id < ?', self.id).pluck(:id).last
+    self.class.where('id < ?', self.id).where(active: true).pluck(:id).first
   end
 
 =begin  

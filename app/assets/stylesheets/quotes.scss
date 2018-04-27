@@ -2,9 +2,72 @@ body {
   font-family:  sans-serif;
 }
 
+.add-quote {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-quote-container {
+  padding-left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notification {
+  padding: 1px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+input[type=text], select {
+    width: 300px;
+    padding: 10px;
+    margin: 4px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.submit:hover {
+    background-color: #2877EF;
+}
+
+.submit {
+  border-radius: 4px;
+  background-color: #1C69DE;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 5px;
+  width: 80px;
+  height: 30px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.addButton{
+  border-radius: 4px;
+  background-color: #1C69DE;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 5px;
+  width: 80px;
+  height: 30px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
 .quote-container {
   display:flex;
-  height: 90vh;
+  height: 40vh;
   justify-content: center;
   align-items: center;
  }
