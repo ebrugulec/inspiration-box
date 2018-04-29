@@ -27,9 +27,28 @@ class QuotesDisplay extends React.Component {
     this.fetchQuote = this.fetchQuote.bind(this)
     fireRedirect: false
   }
-
   getInitialState(){
     return { addQuote: false }
+  }
+
+  _handleKeyDown (event) {
+      switch( event.keyCode ) {
+          case 37:
+            var prev = this.state.quote.previous_id
+            if(prev)
+            {
+              this.fetchQuote(prev)
+              this.props.history.push(`/?quote=${prev}`)
+            }
+            break;
+          case 39:
+            var next = this.state.quote.next_id
+            if(next){
+              this.fetchQuote(next)
+              this.props.history.push(`/?quote=${next}`)
+            }
+            break;
+      }
   }
 
   fetchQuote (id) {
@@ -55,6 +74,11 @@ class QuotesDisplay extends React.Component {
   componentDidMount () {
     this.setQuoteIdFromQueryString(this.props.location.search)
     this.fetchQuote(this.quoteId)
+    document.addEventListener("keydown", this._handleKeyDown.bind(this));
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this._handleKeyDown.bind(this));
   }
 
   componentWillReceiveProps (nextProps) {
@@ -116,20 +140,29 @@ class QuotesDisplay extends React.Component {
     const previousQuoteId = quote.previous_id
     const addQuote = this.state.addQuote
     const noti = this.state.notification
-
+   
     return (
       <div>
         <div className='quote-container'>
           {this.state.fireRedirect &&
-          <Redirect to={'/'} />
-            }
+            <Redirect to={'/'} />
+          }
+          
           {previousQuoteId &&
-          <QuoteNavigation direction='previous' otherQuoteId={previousQuoteId} callBackPreviousQuote={this.fetchQuote}/>
-            }
+            <QuoteNavigation 
+              direction='previous' 
+              otherQuoteId={previousQuoteId} 
+              callBackPreviousQuote={this.fetchQuote}/>
+          }
+
           <QuoteText quote={this.state.quote} />
+
           {nextQuoteId &&
-          <QuoteNavigation direction='next' otherQuoteId={nextQuoteId} callBackNextQuote={this.fetchQuote}/>
-            }
+            <QuoteNavigation 
+              direction='next' 
+              otherQuoteId={nextQuoteId} 
+              callBackNextQuote={this.fetchQuote}/>
+          }
         </div>
        
         {

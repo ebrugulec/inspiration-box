@@ -8,7 +8,7 @@ class Quote < ApplicationRecord
   end
 
   def previous_id
-    self.class.where('id < ?', self.id).where(active: true).pluck(:id).first
+    self.class.where('id < ?', self.id).where(active: true).pluck(:id).last
   end
 
 =begin  
