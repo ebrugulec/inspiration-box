@@ -6,15 +6,15 @@ import {
 import QuotesDisplay from './QuotesDisplay'
 
 const App = (props) => (
-  <Router startingQuoteId={props.startingQuoteId}>
-	<div>
-	  <Route
-	    path='/'
-	    startingQuoteId={props.startingQuoteId}
-	    render={(routeProps) => <QuotesDisplay {...props} {...routeProps} />}
-	  />
+  <div>
+		<Router startingQuoteId={props.startingQuoteId}>
+			<Route
+				path='/'
+				startingQuoteId={props.startingQuoteId}
+				render={(routeProps) => <QuotesDisplay {...props} {...routeProps} />}
+			/>
+		</Router>
 	</div>
-  </Router>
 )
 
 export default App

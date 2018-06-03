@@ -8,8 +8,8 @@ const AddQuote = (props) => (
         <br />
         <input type="text" ref={props.authorRef} placeholder="Author.." value={props.author} onChange={props.authorChange}/>
         <br />
-        <button className="submit" onClick={props.submit}>Create</button>
-        <button className="submit" onClick={props.cancel}>Cancel</button>
+        <button className="button" onClick={props.submit}>Create</button>
+        <button className="button button-outline" onClick={props.cancel}>Cancel</button>
     </div>
   </div>
 )

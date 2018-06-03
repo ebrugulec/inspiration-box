@@ -142,7 +142,7 @@ class QuotesDisplay extends React.Component {
     const noti = this.state.notification
    
     return (
-      <div>
+      <div className='container'>
         <div className='quote-container'>
           {this.state.fireRedirect &&
             <Redirect to={'/'} />
@@ -163,31 +163,31 @@ class QuotesDisplay extends React.Component {
               otherQuoteId={nextQuoteId} 
               callBackNextQuote={this.fetchQuote}/>
           }
+
         </div>
-       
-        {
-          !addQuote &&
-          <div className="add-quote">
-            <button className="addButton" onClick={this.add} >
-              Add Quote
-            </button>
-          </div>
-        }
-          
-        {
-          addQuote && 
-          <div className="add-quote">
-            <div>
-              <input type="text" ref="quote" placeholder="Quote.." value={this.state.text} onChange={this.handleTextChange}/>
-              <br />
-              <input type="text" ref="author" placeholder="Author.." value={this.state.author} onChange={this.handleAuthorChange}/>
-              <br />
-              <button className="submit" onClick={this.handleSubmit}>Create</button>
-              <button className="submit" onClick={this.handleCancel}>Cancel</button>
-            </div>
-          </div>
-        }
         
+					{
+						!addQuote &&
+						<div className="add-quote">
+							<button className="addButton" onClick={this.add} >
+								Add Quote
+							</button>
+						</div>
+					}
+						
+					{
+						addQuote && 
+						<div className="add-quote">
+							<div>
+								<input type="text" ref="quote" placeholder="Quote.." value={this.state.text} onChange={this.handleTextChange}/>
+								<br />
+								<input type="text" ref="author" placeholder="Author.." value={this.state.author} onChange={this.handleAuthorChange}/>
+								<br />
+								<button className="button button-create" onClick={this.handleSubmit}>Create</button>
+								<button className="button button-outline" onClick={this.handleCancel}>Cancel</button>
+							</div>
+						</div>
+					}
         { 
           noti &&
           <div className="add-quote-container">
