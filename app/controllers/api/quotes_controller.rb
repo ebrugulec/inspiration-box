@@ -3,20 +3,20 @@ class Api::QuotesController < ApplicationController
 
 	def show
 		@quote = Quote.where(id: params[:id], active: true).first
-  	end
+  end
 
-  	def new
-  		@quote = Quote.new(quote_params)
-  		if @quote.save
-  			respond_to do |format|
-  				format.json { head :no_content }
-  			end
+  def new
+  	@quote = Quote.new(quote_params)
+  	if @quote.save
+  		respond_to do |format|
+  			format.json { head :no_content }
   		end
   	end
+  end
 
-  	private
+  private
 
-  	def quote_params
-  		params.require(:quote).permit(:text, :author)
-  	end
+  def quote_params
+  	params.require(:quote).permit(:text, :author)
+  end
 end

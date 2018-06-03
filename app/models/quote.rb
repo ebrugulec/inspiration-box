@@ -3,6 +3,18 @@ class Quote < ApplicationRecord
   validates :text, presence: true
   validates :author, presence: true
 
+  def self.to_csv
+  	attributes = %w{id text author}
+
+   	CSV.generate(headers: true) do |csv|
+    	csv << attributes
+
+      all.each do |quote|
+      	csv << attributes.map{ |attr| quote.send(attr) }
+	  	end	
+		end
+	end
+
   def next_id
     self.class.where('id > ?', self.id).where(active: true).pluck(:id).first
   end

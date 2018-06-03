@@ -10,6 +10,9 @@
 
 .add-quote {
 	text-align: center;
+	display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .quote-container {
@@ -36,10 +39,6 @@
 .link-next, .link-previous {
 	display: inline-block;
 	font-size: 4em;
-}
-
-input[type='text'] {
-	width: 50% !important;
 }
 
 .button-create {

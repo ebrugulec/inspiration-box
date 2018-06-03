@@ -172,6 +172,9 @@ class QuotesDisplay extends React.Component {
 							<button className="addButton" onClick={this.add} >
 								Add Quote
 							</button>
+							<a className="button button-outline" href="export/quotes" >
+								Export Quotes | CSV
+							</a>
 						</div>
 					}
 						
